@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+.next/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+*.log
+*-debug.log*
+.DS_Store
+coverage/
+.cursor/
+.vscode/
+.pnpm-debug.log*
+apps/*/pnpm-lock.yaml
