@@ -6,9 +6,10 @@
     "scripts": {
         "dev": "node --experimental-strip-types --env-file=.env --watch src/server.ts",
         "typecheck": "tsc --noEmit",
-        "test": "node --test src/**/*.test.ts",
+        "test": "node --env-file=.env.test --test src/**/*.test.ts",
         "migrate": "node --env-file=.env node_modules/node-pg-migrate/bin/node-pg-migrate.js",
-        "migrate:create": "node --env-file=.env node_modules/node-pg-migrate/bin/node-pg-migrate.js create -j ts"
+        "migrate:create": "node --env-file=.env node_modules/node-pg-migrate/bin/node-pg-migrate.js create -j ts",
+        "migrate:test": "node --env-file=.env.test node_modules/node-pg-migrate/bin/node-pg-migrate.js"
     },
     "dependencies": {
         "fastify": "^5.12.8",

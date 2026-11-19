@@ -1,8 +1,12 @@
-import { test } from 'node:test'
+import { test, before, after } from 'node:test'
+import { pool } from './db.ts'
 import assert from 'node:assert/strict'
 import { buildApp } from './app.ts'
 
 const app = buildApp({ logger: false })
+before(async () => {
+    await pool.query('TRUNCATE artists')
+})
 
 test('POST /artists accepts a valid body', async () => {
 
@@ -47,4 +51,8 @@ test('POST /artists does not accept malformed JSON', async () => {
     })
 
     assert.equal(response.statusCode, 400)
+})
+
+after(async () => {
+    await pool.end
 })
