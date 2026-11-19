@@ -5,6 +5,7 @@ import {
     validatorCompiler,
     type ZodTypeProvider
 } from 'fastify-type-provider-zod'
+import { pool } from './db.ts'
 
 export function buildApp(options = { logger: true }) {
 
@@ -23,8 +24,12 @@ export function buildApp(options = { logger: true }) {
     fastify.post('/artists', { 
         schema: { body: ArtistSchema }
     }, async (request, reply) => {
-        reply.code(201)
-        return request.body
+        const result = await pool.query(
+            'INSERT INTO artists (name) VALUES ($1) RETURNING *',
+            [request.body.name]
+        )
+        reply.code(201) 
+        return result.rows[0]
     })
 
     return fastify 
